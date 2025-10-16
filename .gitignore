@@ -1,0 +1,60 @@
+# criar .gitignore
+printf "%s\n" \
+'# ---- Python / FastAPI / IDEs ----
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+.build/
+dist/
+build/
+venv/
+.venv/
+env/
+ENV/
+
+# tooling
+.mypy_cache/
+.pytest_cache/
+pytestdebug.log
+.coverage
+htmlcov/
+
+# IDEs
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Env & secrets
+.env
+*.env
+.env.*.local
+
+# Local data / uploads
+uploads/*
+!uploads/.gitkeep
+
+# Logs & runtime
+*.log
+*.sqlite3
+*.db
+uvicorn.log
+
+# Byte-compiled caches
+**/__pycache__/
+
+# Jupyter (se usar)
+.ipynb_checkpoints/
+' > .gitignore
+
+# garantir a pasta uploads vazia e rastreável:
+mkdir -p uploads
+touch uploads/.gitkeep
+
+# Development utilities
+check_structure.py
