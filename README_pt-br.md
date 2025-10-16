@@ -94,7 +94,7 @@ buildflow/
 ## 💻 Como Rodar Localmente:
 
 1️⃣ Clonar o repositório
-    git clone https://github.com/<seu-usuario>/buildflow.git
+    git clone https://github.com/atpyprog/buildflow-backend
     cd buildflow
 
 2️⃣ Criar e ativar um ambiente virtual

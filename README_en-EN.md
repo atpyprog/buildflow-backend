@@ -94,7 +94,7 @@ The project was developed as a **bridge between theory and practice**, with the 
 ## 💻 How to Run Locally
 
 1️⃣ Clone the repository
-    git clone https://github.com/<your-username>/buildflow.git
+    git clone https://github.com/atpyprog/buildflow-backend
     cd buildflow
 
 2️⃣ Create and activate a virtual environment
