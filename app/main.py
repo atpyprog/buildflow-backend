@@ -6,6 +6,7 @@ from app.core.config import settings
 from app.api.v1.router import router_v1
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
+import json
 
 """
 BuildFlow – FastAPI entrypoint.
@@ -32,14 +33,40 @@ start_server.mount("/uploads", StaticFiles(directory=settings.UPLOAD_DIR), name=
 
 start_server.include_router(router_v1, prefix="/api/v1")
 
-if CORS_AVAILABLE and settings.CORS_ORIGINS:
-    start_server.add_middleware(
-        CORSMiddleware,
-        allow_origins=list(settings.CORS_ORIGINS),
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
+def _normalize_cors(origins_setting):
+    """
+    Aceita: list[str], string JSON (ex: '["http://..."]') ou CSV (ex: 'http://...,http://...').
+    Retorna sempre uma lista de strings (sem espaços) ou lista vazia.
+    """
+    if not origins_setting:
+        return []
+    if isinstance(origins_setting, list):
+        return [o.strip() for o in origins_setting if o and o.strip()]
+    if isinstance(origins_setting, str):
+        s = origins_setting.strip()
+        try:
+            parsed = json.loads(s)
+            if isinstance(parsed, list):
+                return [o.strip() for o in parsed if o and o.strip()]
+        except Exception:
+            pass
+        return [o.strip() for o in s.split(",") if o and o.strip()]
+    return []
+
+origins = _normalize_cors(getattr(settings, "CORS_ORIGINS", []))
+
+if not origins:
+    origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
+
+start_server.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+print("CORS habilitado para:", origins)
 
 @start_server.get("/health", tags=["Health"])
 def health():

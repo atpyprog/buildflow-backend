@@ -1,4 +1,3 @@
-# criar .gitignore
 printf "%s\n" \
 '# ---- Python / FastAPI / IDEs ----
 __pycache__/
