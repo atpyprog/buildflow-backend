@@ -48,7 +48,6 @@ uvicorn.log
 **/__pycache__/
 
 
-# garantir a pasta uploads vazia e rastreável:
 mkdir -p uploads
 touch uploads/.gitkeep
 
