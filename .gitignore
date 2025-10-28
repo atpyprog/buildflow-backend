@@ -47,9 +47,6 @@ uvicorn.log
 # Byte-compiled caches
 **/__pycache__/
 
-# Jupyter (se usar)
-.ipynb_checkpoints/
-' > .gitignore
 
 # garantir a pasta uploads vazia e rastreável:
 mkdir -p uploads
